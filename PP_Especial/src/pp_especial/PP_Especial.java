@@ -107,9 +107,9 @@ public class PP_Especial {
         }                                                                                                               //EQUIPMENTSIMPLS
         
         System.out.println("");
-        TeamImpl team = new TeamImpl("Porto", emp1, 10);                                                      //TEAMSIMPLS
-        TeamImpl team2 = new TeamImpl("Benfica", emp1, 10);
-        TeamImpl team3 = new TeamImpl("Sporting", emp1, 10);
+        TeamImpl team = new TeamImpl("Porto", emp1, 10, equips);                                                      //TEAMSIMPLS
+        TeamImpl team2 = new TeamImpl("Benfica", emp1, 10, equips);
+        TeamImpl team3 = new TeamImpl("Sporting", emp1, 10, equips);
         System.out.println("Team leader name: " + team.getLeader().getName());
         System.out.println("");
         
@@ -154,10 +154,10 @@ public class PP_Especial {
         
         System.out.println("");
                                                                                                                         //CONSTRUCTIONSITEIMPLS
-        ConstructionSiteImpl cons = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 6), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5);
-        ConstructionSiteImpl cons2 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5);
-        ConstructionSiteImpl cons3 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5);
-        ConstructionSiteImpl cons4 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5);
+        ConstructionSiteImpl cons = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 6), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
+        ConstructionSiteImpl cons2 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
+        ConstructionSiteImpl cons3 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
+        ConstructionSiteImpl cons4 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
         cons.setResponsible(emp2);
         
         cons.addTeam(team);
@@ -229,7 +229,7 @@ public class PP_Especial {
         }
         System.out.println("");
         System.out.println("Equipments not in use: ");
-        Equipment[] equiNotInUse = csm.getEquipmentsInUse();
+        Equipment[] equiNotInUse = csm.getIddleEquipments();
         for(Equipment eqpmtNotInUse : equiNotInUse){
             if(eqpmtNotInUse != null){
                 System.out.println(eqpmtNotInUse);

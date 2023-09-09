@@ -22,12 +22,12 @@ public class TeamImpl implements Team{
     private Equipments equipments;
     private final int MAX_EQUIPMENTS_PER_TEAM = 20;
 
-    public TeamImpl(String teamName, Employee leader, int numMaxOfEmployees) {
+    public TeamImpl(String teamName, Employee leader, int numMaxOfEmployees, Equipments equi) {
         emp = new Employee[numMaxOfEmployees];
         this.teamName = teamName;
         this.leader = leader;
+        this.equipments = equi;
         numberOfEmployees = 0;
-        equipments = new EquipmentsImpls(MAX_EQUIPMENTS_PER_TEAM);
     }  
 
     @Override

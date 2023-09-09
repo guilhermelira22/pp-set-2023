@@ -27,7 +27,7 @@ public class ConstructionSiteImpl implements ConstructionSite{
     private Equipments equipments;
     private final int MAX_EQUIPMENTS_PER_TEAM = 20;
 
-    public ConstructionSiteImpl(String name, String location, String permit, LocalDate permitExpirationDate, LocalDate startDate, LocalDate endDate, Employee responsible, int numMaxOfTeams) {
+    public ConstructionSiteImpl(String name, String location, String permit, LocalDate permitExpirationDate, LocalDate startDate, LocalDate endDate, Employee responsible, int numMaxOfTeams, Equipments equi) {
         this.name = name;
         this.location = location;
         this.permit = permit;
@@ -35,8 +35,8 @@ public class ConstructionSiteImpl implements ConstructionSite{
         this.startDate = startDate;
         this.endDate = endDate;
         this.responsible = responsible;
+        this.equipments = equi;
         teams = new Team[numMaxOfTeams];
-        equipments = new EquipmentsImpls(MAX_EQUIPMENTS_PER_TEAM);
     }
 
     @Override
@@ -182,6 +182,11 @@ public class ConstructionSiteImpl implements ConstructionSite{
     @Override
     public Equipments getEquipments() {
         return equipments;
+    }
+    
+    @Override
+    public String toString(){
+        return "Name: " + getName();
     }
     
 }
