@@ -220,7 +220,18 @@ public class ConstructionSiteImpl implements ConstructionSite{
     
     @Override
     public String toString(){
-        return "Name: " + getName();
+        return "Name: " 
+                + getName() 
+                + ", Location: " 
+                + getLocation() 
+                + ", Permissao: " 
+                + getPermit() 
+                + ", Permit expiration Date: " 
+                + getPermitExpirationDate()
+                + ", Start Date: "
+                + getStartDate()
+                + ", End Date: "
+                + getEndDate();
     }
     
 }

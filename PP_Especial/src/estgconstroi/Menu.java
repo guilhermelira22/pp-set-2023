@@ -20,7 +20,9 @@ import java.util.Scanner;
  */
 public class Menu {
     
-    Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in); 
+    LoadData loadData = new LoadData();
+    
     
     public void menuPrincipal() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException{
         
@@ -29,18 +31,18 @@ public class Menu {
         
         while(!exit){
             
-            System.out.println("1- Registo");
-            System.out.println("2- Eventos");
+            System.out.println("1- Carregar dados");
+            System.out.println("2- Listar Dados");
             System.out.println("3- Sair");
             
             option = sc.nextInt();
             
             switch(option){
                 case 1: 
-                    RegistoObra();
+                    loadData.data();
                     break;
                 case 2:
-                    Eventos();
+                    loadData.listing();
                     break;
                 case 3:
                     exit = true;
@@ -54,7 +56,9 @@ public class Menu {
         
     }
     
-    public void RegistoObra() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException{
+    
+    
+    /*public void RegistoObra() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException{
         
         boolean exit = false;
         EquipmentsImpls equips = null;
@@ -215,10 +219,6 @@ public class Menu {
         
     }
     
-    public void Eventos(){
-        
-    }
-    
     private boolean EquipamentoDisponivel(String equipName, Equipments equips) {
         Equipment[] availableEquipments = equips.getEquipment();
         for (Equipment equipment : availableEquipments) {
@@ -227,6 +227,10 @@ public class Menu {
             }
         }
         return false;
+    }*/
+    
+    public void Eventos(){
+        
     }
     
 }
