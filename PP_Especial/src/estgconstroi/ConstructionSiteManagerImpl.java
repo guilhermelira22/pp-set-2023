@@ -22,6 +22,9 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
 
     public ConstructionSiteManagerImpl(int maxConsS) {
         consS = new ConstructionSite[maxConsS];
+        if (!isValid()) {
+            throw new IllegalArgumentException("Obra invalida!");
+        }
     }
 
     @Override
@@ -231,6 +234,19 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
         }
 
         return true;
+    }
+    
+    public ConstructionSite[] getConstructionSites(){
+        ConstructionSite[] result = new ConstructionSite[numberOfConsS];
+        int index = 0;
+        
+        for(ConstructionSite constructionS : consS){
+            if (constructionS != null) {
+                result[index] = constructionS;
+                index++;
+            }
+        }
+        return result;
     }
     
 }

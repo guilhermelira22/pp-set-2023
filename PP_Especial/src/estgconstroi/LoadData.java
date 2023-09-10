@@ -7,10 +7,14 @@ package estgconstroi;
 import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EquipmentStatus;
 import estgconstroi.enums.EquipmentType;
+import estgconstroi.enums.EventPriority;
+import estgconstroi.exceptions.EventManagerException;
 import estgconstroi.exceptions.TeamException;
 import exceptions.ConstructionSiteExceptionImpl;
 import exceptions.ConstructionSiteManagerExceptionImpl;
+import java.io.IOException;
 import java.time.LocalDate;
+
 
 /**
  *
@@ -25,8 +29,11 @@ public class LoadData {
     private TeamImpl team, team2, team3, team4;
     private ConstructionSiteImpl cons, cons2, cons3, cons4;
     private ConstructionSiteManagerImpl csm;
+    private EventImpl event1, event2, event3, event4;
+    private NotifierImpl notifier1, notifier2, notifier3;
+    private EventManagerImpl eventM;
 
-    public void data() throws ConstructionSiteExceptionImpl, TeamException, ConstructionSiteManagerExceptionImpl {
+    public void data() throws ConstructionSiteExceptionImpl, TeamException, ConstructionSiteManagerExceptionImpl, EventManagerException {
 
         emp1 = new EmployeeImpl("Lira", "123abc", EmployeeType.TEAM_LEADER);
         emp2 = new EmployeeImpl("Joao", "321cba", EmployeeType.MANAGER);
@@ -70,16 +77,16 @@ public class LoadData {
         team3.addEmployees(emp3);
         team4.addEmployees(emp4);
 
-        cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips5);
-        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips6);
-        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips7);
-        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips8);
+        cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips5);
+        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips6);
+        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips7);
+        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips8);
 
         cons.setResponsible(emp2);
         cons.addTeam(team);
         cons2.addTeam(team2);
         cons3.addTeam(team3);
-        cons4.addTeam(team4);
+        cons.addTeam(team4);
 
         csm = new ConstructionSiteManagerImpl(10);
 
@@ -88,9 +95,27 @@ public class LoadData {
         csm.add(cons3);
         csm.add(cons4);
 
+        notifier1 = new NotifierImpl("E-mail");
+        notifier2 = new NotifierImpl("SMS");
+        notifier3 = new NotifierImpl("Console");
+
+        Notifier[] notifiers = {notifier1, notifier2};
+
+        event1 = new EventImpl(EventPriority.HIGH, "Avaria", emp1, cons, "Escavadora caiu", "Escavadora avariou", "qwerty", LocalDate.of(2023, 9, 20));
+        // event2 = new EventImpl(EventPriority.LOW, "Acidente", emp2, cons, "Trabalhador partiu o pe", "Trabalhador lesionado", "abcdef", LocalDate.of(2023, 9, 22));
+        // event3 = new EventImpl(EventPriority.NORMAL, "Avaria", emp3, cons3, "serra eletrica estragou", "Serra eletrica avariou", "yuiop", LocalDate.of(2023, 9, 25));
+        event2 = new EventImpl(EventPriority.LOW, "Perda de material", emp2, cons2, "Perdeu se o martelo", "Martelo perdido", "abcdef", LocalDate.of(2023, 9, 22),emp1);
+        event3 = new EventImpl(EventPriority.NORMAL, "Avaria", emp3, cons3, "Serra eletrica parou de funcionar", "Serra eletrica avariou", "qwerty", LocalDate.of(2023, 9, 23),equi1);
+
+        eventM = new EventManagerImpl(10);
+
+        eventM.reportEvent(event1);
+        eventM.reportEvent(event2);
+        eventM.reportEvent(event3);
+
     }
-    
-    private void listEquipments(Equipments equipment){
+
+    private void listEquipments(Equipments equipment) {
         Equipment[] equipamentos = equipment.getEquipment();
         for (Equipment equipamento : equipamentos) {
             if (equipamento != null) {
@@ -98,10 +123,10 @@ public class LoadData {
             }
         }
     }
-    
+
     private void listEmployee(Team employee) {
         Employee[] employees = employee.getEmployees();
-        for(Employee employeeList : employees){
+        for (Employee employeeList : employees) {
             if (employeeList != null) {
                 System.out.println(employeeList);
             }
@@ -117,19 +142,45 @@ public class LoadData {
                 listEquipments(team.getEquipments());
             }
         }
+    }
+
+    private void listConstructionSites(ConstructionSiteManagerImpl constructionSite) {
+        ConstructionSite[] constructionS = constructionSite.getConstructionSites();
+        for (ConstructionSite constructionSites : constructionS) {
+            if (constructionSites != null) {
+                System.out.println(constructionSites);
+                listTeams(constructionSites);
+                listEvents(eventM, constructionSites.getName());
+            }
+        }
+    }
+
+    private void listEvents(EventManagerImpl event, String constructionSite) {
+        Event[] events = event.getEvent(constructionSite);
+        for (Event evento : events) {
+            if (evento != null) {
+                System.out.println(evento);
+            }
+        }
+    }
+
+    public void sendReport() throws IOException, InterruptedException {
+        // System.out.println(event1);
+        Event[] events = eventM.getEvent();
+        for (Event evento : events) {
+
+            if (evento != null) {
+                InsuranceReporter report = new InsuranceReporter();
+                String result = report.addEvent(evento.toString());
+                System.out.println(result);
+            }
+        }
 
     }
 
     public void listing() {
-        
-        System.out.println(cons);
-        listTeams(cons);
-        System.out.println(cons2);
-        listTeams(cons2);
-        System.out.println(cons3);
-        listTeams(cons3);
-        System.out.println(cons4);
-        listTeams(cons4);
+
+        listConstructionSites(csm);
 
     }
 

@@ -12,7 +12,15 @@ import java.time.LocalDate;
  *
  * @author guilhermeLira
  */
-public class EventManagerImpl implements EventManager{
+public class EventManagerImpl implements EventManager {
+
+    private Event[] events;
+    private int numberOfEvents = 0;
+
+    public EventManagerImpl(int numMaxOfEvents) {
+        this.events = new Event[numMaxOfEvents];
+        numberOfEvents = 0;
+    }
 
     @Override
     public void addNotifier(Notifier ntfr) throws EventManagerException {
@@ -26,7 +34,24 @@ public class EventManagerImpl implements EventManager{
 
     @Override
     public void reportEvent(Event event) throws EventManagerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            for (int i = 0; i < numberOfEvents; i++) {
+                if (events[i] != null && events[i].equals(event)) {
+                    throw new EventManagerException("O evento ja foi reportado.");
+                }
+            }
+
+            for (int i = 0; i < events.length; i++) {
+                if (events[i] == null) {
+                    events[i] = event;
+                    numberOfEvents++;
+                    return;
+                }
+            }
+
+        } catch (EventManagerException e) {
+            throw e;
+        }
     }
 
     @Override
@@ -58,5 +83,54 @@ public class EventManagerImpl implements EventManager{
     public Event[] getEvent(LocalDate ld, LocalDate ld1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public Event[] getEvent(String constructionSite) {
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+
+        for (Event event : events) {
+            if (event != null && event.getConstructionSite().getName().equals(constructionSite)) {
+                result[index] = event;
+                index++;
+            }
+        }
+        return result;
+    }
+
+    public Event[] getEvent() {
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+
+        for (Event event : events) {
+            if (event != null) {
+                result[index] = event;
+                index++;
+            }
+        }
+        return result;
+    }
+
+    /* public void sendReport(){
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+        
+        for(Event event : events){
+            if (event != null) {
+                String jsonData = 
+                        "{ \"groupname\":\"Grupo8\","
+                        + "\"groupkey\":\"xpto\","
+                        + "\"event\": {"
+                        + "\"uuid\": " + event.getUuid()+","
+                        + "\"data\": " + event.getDate()+","
+                        + "\"priority\": " + event.getPriority() + ","
+                        + "\"eventtype\": " + event.
+                        + "\"title\": "Avaria de máquina",
+                        + "\"constructionsitename\": "cs1",
+                        + "\"details\": "...",
+                        + "\"employeename\": "João"
+                        + "}"
+                        + "}";
+            }
+        }
+    }*/
 }

@@ -39,7 +39,10 @@ public class ConstructionSiteImpl implements ConstructionSite{
         this.responsible = responsible;
         this.equipments = equi;
         this.teams = new Team[numMaxOfTeams];
-        numberOfteams = 0;
+        numberOfteams = 0; 
+        if (!isValid()) {
+            throw new IllegalArgumentException("Dados inválidos!");
+        }
     }
 
     @Override
@@ -179,9 +182,9 @@ public class ConstructionSiteImpl implements ConstructionSite{
         if (responsible.getType() != EmployeeType.MANAGER) {
             return false;
         }
-        if (numberOfteams == 0) {
+        /*if (numberOfteams == 0) {
             return false;
-        }
+        }*/
         /*for (Team team : teams) {
         boolean hasTeamLeader = false;
         for (Employee employee : team.getEmployees()) {

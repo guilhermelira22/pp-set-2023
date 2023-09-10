@@ -11,17 +11,43 @@ import java.time.LocalDate;
  *
  * @author guilhermeLira
  */
-public class EventImpl extends Event{
-    
+public class EventImpl extends Event {
+
     private String uuid;
     private LocalDate date;
-    private EventPriority priority;
-    private String title;
-    private Employee reporter;
-    private ConstructionSite constructionSite;
+    private String details;
+    private String message;
+    private Employee employee;
+    private Equipment equipment;
+    private String eventType;
 
-    public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite) {
+    public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite, String details, String message, String uuid, LocalDate date) {
         super(priority, title, reporter, constructionSite);
+        this.uuid = uuid;
+        this.date = date;
+        this.details = details;
+        this.message = message;
+        this.eventType = "Incident";
+    }
+
+    public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite, String details, String message, String uuid, LocalDate date, Employee employee) {
+        super(priority, title, reporter, constructionSite);
+        this.uuid = uuid;
+        this.date = date;
+        this.details = details;
+        this.message = message;
+        this.employee = employee;
+        this.eventType = "Accident";
+    }
+
+    public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite, String details, String message, String uuid, LocalDate date, Equipment equipment) {
+        super(priority, title, reporter, constructionSite);
+        this.uuid = uuid;
+        this.date = date;
+        this.details = details;
+        this.message = message;
+        this.equipment = equipment;
+        this.eventType = "Failure";
     }
 
     @Override
@@ -29,9 +55,8 @@ public class EventImpl extends Event{
         return date;
     }
 
-    @Override
-    public EventPriority getPriority() {
-        return priority;
+    public String getEventType() {
+        return eventType;
     }
 
     @Override
@@ -40,30 +65,48 @@ public class EventImpl extends Event{
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public Employee getReporter() {
-        return reporter;
-    }
-
-    @Override
-    public ConstructionSite getConstructionSite() {
-        return constructionSite;
-    }
-
-    @Override
     public String getDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return details;
     }
 
     @Override
     public String getNotificationMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return message;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        /* return "Construction Site: "
+                + getConstructionSite()
+                + "\n Reporter: "
+                + getReporter()
+                + "\n Date: "
+                + getDate()
+                + "\n Events uuid: "
+                + getUuid()
+                + "\n Priority: "
+                + getPriority()
+                + "\n Title: "
+                + getTitle()
+                + "\n Notification Message: "
+                + getNotificationMessage()
+                + "\n Details: "
+                + getDetails()
+                + "\n Event Type: "
+                + getEventType(); */
+        return "{ \"groupname\":\"Grupo8\","
+                + "\"groupkey\":\"xpto\","
+                + "\"event\": {"
+                + "\"uuid\": \"" + getUuid() + "\","
+                + "\"data\": \"" + getDate() + "\","
+                + "\"priority\": \"" + getPriority() + "\","
+                + "\"eventtype\": \"" + getEventType() + "\","
+                + "\"title\": \"" + getTitle() + "\","
+                + "\"constructionsitename\": \"" + getConstructionSite().getName() + "\","
+                + "\"details\": \"" + getDetails() + "\","
+                + "\"employeename\": \"" + getReporter().getName() + "\""
+                + "}"
+                + "}";
+    }
+
 }

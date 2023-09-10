@@ -7,6 +7,7 @@ package estgconstroi;
 import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EquipmentStatus;
 import estgconstroi.enums.EquipmentType;
+import estgconstroi.exceptions.EventManagerException;
 import estgconstroi.exceptions.TeamException;
 import exceptions.ConstructionSiteExceptionImpl;
 import exceptions.ConstructionSiteManagerExceptionImpl;
@@ -19,45 +20,46 @@ import java.util.Scanner;
  * @author guilhermeLira
  */
 public class Menu {
-    
-    Scanner sc = new Scanner(System.in); 
+
+    Scanner sc = new Scanner(System.in);
     LoadData loadData = new LoadData();
-    
-    
-    public void menuPrincipal() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException{
-        
+
+    public void menuPrincipal() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException, EventManagerException {
+
         boolean exit = false;
         int option = 0;
-        
-        while(!exit){
-            
+
+        while (!exit) {
+
             System.out.println("1- Carregar dados");
             System.out.println("2- Listar Dados");
-            System.out.println("3- Sair");
-            
+            System.out.println("3- Enviar Insurance Report");
+            System.out.println("0- Sair");
+
             option = sc.nextInt();
-            
-            switch(option){
-                case 1: 
+
+            switch (option) {
+                case 1:
                     loadData.data();
                     break;
                 case 2:
                     loadData.listing();
                     break;
                 case 3:
+                    loadData.sendReport();
+                    break;
+                case 0:
                     exit = true;
                     break;
                 default:
                     System.out.println("Opcao invalida");
-                    
+
             }
-            
+
         }
-        
+
     }
-    
-    
-    
+
     /*public void RegistoObra() throws ConstructionSiteExceptionImpl, ConstructionSiteManagerExceptionImpl, TeamException{
         
         boolean exit = false;
@@ -228,9 +230,8 @@ public class Menu {
         }
         return false;
     }*/
-    
-    public void Eventos(){
-        
+    public void Eventos() {
+
     }
-    
+
 }
