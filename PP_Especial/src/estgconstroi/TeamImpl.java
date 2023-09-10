@@ -109,7 +109,7 @@ public class TeamImpl implements Team{
         int index = 0;
         
         for(Employee employee : emp){
-            if (employee != null && employee.getName() == string) {
+            if (employee != null && employee.getName().equalsIgnoreCase(string)) {
                 result[index] = employee;
                 index++;
             }

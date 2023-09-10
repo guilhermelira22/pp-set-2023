@@ -143,7 +143,94 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Equipment[] allEquipment = new Equipment[numberOfConsS * MAX_EQUIPMENTS_PER_CONSTRUCTION_SITE];
+        Team[] assignedTeams = new Team[numberOfConsS * MAX_TEAMS_PER_CONSTRUCTION_SITE];
+        Employee[] assignedEmployees = new Employee[numberOfConsS * MAX_TEAMS_PER_CONSTRUCTION_SITE * MAX_EQUIPMENTS_PER_CONSTRUCTION_SITE];
+        int index = 0;      
+
+        for (ConstructionSite cs : consS) {
+            if (cs != null && cs.isValid()) {
+                Equipment[] constructionSiteEquipment = cs.getEquipments().getEquipment();
+                for (Equipment eq : constructionSiteEquipment) {
+                    if (eq != null) {
+                        allEquipment[index] = eq;
+                        index++;
+                    }
+                }
+
+                Team[] teams = cs.getTeams();
+                for (Team team : teams) {
+                    if (team != null) {
+                        Equipment[] teamEquipment = team.getEquipments().getEquipment();
+                        for (Equipment eq : teamEquipment) {
+                            if (eq != null) {
+                                allEquipment[index] = eq;
+                                index++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < index - 1; i++) {
+            for (int j = i + 1; j < index; j++) {
+                if (allEquipment[i] != null && allEquipment[j] != null && allEquipment[i].equals(allEquipment[j])) {
+                    return false;
+                }
+            }
+        }
+        
+        for (ConstructionSite cs : consS) {
+            if (cs != null && cs.isValid()) {
+                Team[] teams = cs.getTeams();
+                for (Team team : teams) {
+                    if (team != null) {
+                        boolean isTeamAlreadyAssigned = false;
+                        for (int i = 0; i < index; i++) {
+                            if (assignedTeams[i] != null && assignedTeams[i].equals(team)) {
+                                isTeamAlreadyAssigned = true;
+                                break;
+                            }
+                        }
+                        if (isTeamAlreadyAssigned) {
+                            return false; 
+                        }
+                        assignedTeams[index] = team;
+                        index++;
+                    }
+                }
+            }
+        }
+        
+        for (ConstructionSite cs : consS) {
+            if (cs != null && cs.isValid()) {
+                Team[] teams = cs.getTeams();
+                for (Team team : teams) {
+                    if (team != null) {
+                        Employee[] teamEmployees = team.getEmployees();
+                        for (Employee employee : teamEmployees) {
+                            if (employee != null) {
+                                boolean isEmployeeAlreadyAssigned = false;
+                                for (int i = 0; i < index; i++) {
+                                    if (assignedEmployees[i] != null && assignedEmployees[i].equals(employee)) {
+                                        isEmployeeAlreadyAssigned = true;
+                                        break;
+                                    }
+                                }
+                                if (isEmployeeAlreadyAssigned) {
+                                    return false;
+                                }
+                                assignedEmployees[index] = employee;
+                                index++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
     }
     
 }

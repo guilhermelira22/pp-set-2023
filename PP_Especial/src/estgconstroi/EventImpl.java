@@ -22,38 +22,40 @@ public class EventImpl extends Event{
 
     public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite) {
         super(priority, title, reporter, constructionSite);
-        this.priority = priority;
-        this.title = title;
-        this.reporter = reporter;
-        this.constructionSite = constructionSite;
     }
 
+    @Override
     public LocalDate getDate() {
         return date;
     }
 
+    @Override
     public EventPriority getPriority() {
         return priority;
     }
 
+    @Override
     public String getUuid() {
         return uuid;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public Employee getReporter() {
         return reporter;
     }
 
+    @Override
     public ConstructionSite getConstructionSite() {
         return constructionSite;
     }
-    
+
     @Override
-    public String getDetails() { 
+    public String getDetails() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -61,5 +63,7 @@ public class EventImpl extends Event{
     public String getNotificationMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
     
 }

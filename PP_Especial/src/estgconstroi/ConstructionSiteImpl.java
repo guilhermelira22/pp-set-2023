@@ -5,6 +5,8 @@
 package estgconstroi;
 
 import estgconstroi.enums.EmployeeType;
+import estgconstroi.enums.EquipmentStatus;
+import estgconstroi.enums.EquipmentType;
 import estgconstroi.exceptions.ConstructionSiteException;
 import exceptions.ConstructionSiteExceptionImpl;
 import java.time.LocalDate;
@@ -36,7 +38,8 @@ public class ConstructionSiteImpl implements ConstructionSite{
         this.endDate = endDate;
         this.responsible = responsible;
         this.equipments = equi;
-        teams = new Team[numMaxOfTeams];
+        this.teams = new Team[numMaxOfTeams];
+        numberOfteams = 0;
     }
 
     @Override
@@ -170,14 +173,45 @@ public class ConstructionSiteImpl implements ConstructionSite{
 
     @Override
     public boolean isValid() {
-        if(responsible.getType() != responsible.getType().MANAGER){
+        /*System.out.println("Responsible Type: " + responsible.getType()); // Verifique o tipo de responsável
+        System.out.println("Number of Teams: " + numberOfteams); // Verifique o número de equipes*/
+
+        if (responsible.getType() != EmployeeType.MANAGER) {
             return false;
         }
-        if(numberOfteams == 0){
+        if (numberOfteams == 0) {
+            return false;
+        }
+        /*for (Team team : teams) {
+        boolean hasTeamLeader = false;
+        for (Employee employee : team.getEmployees()) {
+        System.out.println("Employee Type: " + employee.getType()); // Verifique o tipo de funcionário
+        if (employee.getType() == EmployeeType.TEAM_LEADER) {
+        hasTeamLeader = true;
+        break;
+        }
+        }
+        if (!hasTeamLeader) {
+        return false;
+        }
+        }*/
+        Equipment[] equip = equipments.getEquipment();   
+        boolean hasTeamLeader = false;
+        for(Equipment equipment : equip){
+            if(equipment.getStatus() == EquipmentStatus.OPERATIVE){
+                hasTeamLeader = true;
+                break;
+            }
+        }
+        if (!hasTeamLeader) {
+            return false;
+        }
+        if (permitExpirationDate.isBefore(endDate)) {
             return false;
         }
         return true;
     }
+
 
     @Override
     public Equipments getEquipments() {

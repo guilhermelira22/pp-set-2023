@@ -15,6 +15,8 @@ import estgconstroi.Equipments;
 import estgconstroi.EquipmentsImpls;
 import estgconstroi.EventImpl;
 import estgconstroi.IncidentImpl;
+import estgconstroi.Menu;
+//import estgconstroi.Menu;
 import estgconstroi.Team;
 import estgconstroi.TeamImpl;
 import estgconstroi.enums.EmployeeType;
@@ -38,8 +40,13 @@ public class PP_Especial {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ConstructionSiteExceptionImpl, TeamExceptionImpl, TeamException, ConstructionSiteException, ConstructionSiteManagerExceptionImpl {    
+        
+        Menu menu = new Menu();
+        menu.menuPrincipal();
+        
+        
 
-        EmployeeImpl emp1 = new EmployeeImpl("Lira", "123abc", EmployeeType.TEAM_LEADER);                                                 // EMPLOYEEIMPL     
+        /*EmployeeImpl emp1 = new EmployeeImpl("Lira", "123abc", EmployeeType.TEAM_LEADER);                                                 // EMPLOYEEIMPL     
         EmployeeImpl emp2 = new EmployeeImpl("Joao", "321cba", EmployeeType.MANAGER);                                                 // EMPLOYEEIMPL
         EmployeeImpl emp3 = new EmployeeImpl("Paulo", "abc123", EmployeeType.WORKER);                                                 // EMPLOYEEIMPL
         EmployeeImpl emp4 = new EmployeeImpl("Rodrigo", "cba321", EmployeeType.WORKER);                                                 // EMPLOYEEIMPL
@@ -53,7 +60,11 @@ public class PP_Especial {
         EquipmentImpl equi1 = new EquipmentImpl("Escavadora", EquipmentType.HEAVY_DUTY, EquipmentStatus.OPERATIVE);     //EQUIPMENTIMPL
         EquipmentImpl equi2 = new EquipmentImpl("Martelo", EquipmentType.TOOLS, EquipmentStatus.OPERATIVE);             //EQUIPMENTIMPL
         EquipmentImpl equi3 = new EquipmentImpl("Capacete", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);        //EQUIPMENTIMPL
-        EquipmentImpl equi4 = new EquipmentImpl("Colete", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);          //EQUIPMENTIMPL
+        EquipmentImpl equi4 = new EquipmentImpl("Colete", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE); 
+        EquipmentImpl equi5 = new EquipmentImpl("Chave de fendas", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);
+        EquipmentImpl equi6 = new EquipmentImpl("Papel", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);
+        EquipmentImpl equi7 = new EquipmentImpl("Serra eletrica", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);//EQUIPMENTIMPL
+        EquipmentImpl equi8 = new EquipmentImpl("Tijolo", EquipmentType.EQUIPMENT, EquipmentStatus.OPERATIVE);//EQUIPMENTIMPL
         System.out.println(equi1);                                                                                      //EQUIPMENTIMPL
         System.out.println(equi2);                                                                                      //EQUIPMENTIMPL
         System.out.println(equi3);                                                                                      //EQUIPMENTIMPL
@@ -68,12 +79,23 @@ public class PP_Especial {
         
         System.out.println("Todos os equipamentos adicionados:");                                                       //EQUIPMENTSIMPLS
         
-        EquipmentsImpls equips = new EquipmentsImpls(10);    
+        EquipmentsImpls equips = new EquipmentsImpls(10);  
+        EquipmentsImpls equips2 = new EquipmentsImpls(10);
+        EquipmentsImpls equips3 = new EquipmentsImpls(10);
+        EquipmentsImpls equips4 = new EquipmentsImpls(10);
+        EquipmentsImpls equips5 = new EquipmentsImpls(10);
+        EquipmentsImpls equips6 = new EquipmentsImpls(10);
+        EquipmentsImpls equips7 = new EquipmentsImpls(10);
+        EquipmentsImpls equips8 = new EquipmentsImpls(10);
         
         equips.addEquipment(equi1);
-        equips.addEquipment(equi2);
-        equips.addEquipment(equi3);
-        equips.addEquipment(equi4);
+        equips2.addEquipment(equi2);
+        equips3.addEquipment(equi3);
+        equips4.addEquipment(equi4);
+        equips5.addEquipment(equi5);
+        equips6.addEquipment(equi6);
+        equips7.addEquipment(equi7);
+        equips8.addEquipment(equi8);
         
         Equipment[] equipamentos = equips.getEquipment();
         for (Equipment equipamento : equipamentos) {
@@ -108,25 +130,19 @@ public class PP_Especial {
         
         System.out.println("");
         TeamImpl team = new TeamImpl("Porto", emp1, 10, equips);                                                      //TEAMSIMPLS
-        TeamImpl team2 = new TeamImpl("Benfica", emp1, 10, equips);
-        TeamImpl team3 = new TeamImpl("Sporting", emp1, 10, equips);
+        TeamImpl team2 = new TeamImpl("Benfica", emp1, 10, equips2);
+        TeamImpl team3 = new TeamImpl("Sporting", emp1, 10, equips3);
+        TeamImpl team4 = new TeamImpl("Juventus", emp1, 10, equips4);
         System.out.println("Team leader name: " + team.getLeader().getName());
         System.out.println("");
         
         team.addEmployees(emp1);
-        team.addEmployees(emp2);
-        team.addEmployees(emp3);
-        team.addEmployees(emp4);
         
-        team2.addEmployees(emp1);
         team2.addEmployees(emp2);
-        team2.addEmployees(emp3);
-        team2.addEmployees(emp4);
         
-        team3.addEmployees(emp1);
-        team3.addEmployees(emp2);
         team3.addEmployees(emp3);
-        team3.addEmployees(emp4);
+        
+        team4.addEmployees(emp4);
         
         System.out.println("Todos os trabalhadores da equipa: ");
         Employee[] employees = team.getEmployees();
@@ -154,28 +170,21 @@ public class PP_Especial {
         
         System.out.println("");
                                                                                                                         //CONSTRUCTIONSITEIMPLS
-        ConstructionSiteImpl cons = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 6), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
-        ConstructionSiteImpl cons2 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
-        ConstructionSiteImpl cons3 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
-        ConstructionSiteImpl cons4 = new ConstructionSiteImpl("Projeto", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips);
+        ConstructionSiteImpl cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips5);
+        ConstructionSiteImpl cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips6);
+        ConstructionSiteImpl cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips7);
+        ConstructionSiteImpl cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 30), emp2, 5, equips8);
         cons.setResponsible(emp2);
         
         cons.addTeam(team);
-        cons.addTeam(team2);
-        cons.addTeam(team3);
         
-        cons2.addTeam(team);
         cons2.addTeam(team2);
-        cons2.addTeam(team3);
-        
-        cons3.addTeam(team);
-        cons3.addTeam(team2);
+
         cons3.addTeam(team3);
-        
-        cons4.addTeam(team);
-        cons4.addTeam(team2);
-        cons4.addTeam(team3);
-        
+
+        cons4.addTeam(team4);
+
+ 
         System.out.println("Equipas: ");
         Team[] teams = cons.getTeams();
         for(Team equipa : teams){
@@ -193,9 +202,6 @@ public class PP_Especial {
         }
         System.out.println("");
         System.out.println(cons.isValid());
-        System.out.println("");
-        System.out.println("Equipments: ");
-        System.out.println(cons.getEquipments());
         
         
         ConstructionSiteManagerImpl csm = new ConstructionSiteManagerImpl(10);
@@ -244,11 +250,8 @@ public class PP_Especial {
             }
         }
         
+        System.out.println(csm.isValid());
         
-        EventImpl event1 = new EventImpl(EventPriority.NORMAL, "Evento1", emp4, cons4);
-        EventImpl event2 = new EventImpl(EventPriority.NORMAL, "Evento2", emp3, cons3);
-        EventImpl event3 = new EventImpl(EventPriority.NORMAL, "Evento3", emp2, cons2);
-        
-    }
+   */ }
     
 }

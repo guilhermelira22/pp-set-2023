@@ -73,7 +73,7 @@ public class EquipmentsImpls implements Equipments{
         int index = 0;
 
         for (Equipment equipment : equip) {
-            if (equipment != null && equipment.getName() == string) {
+            if (equipment != null && equipment.getName().equals(string)) {
                 result[index] = equipment;
                 index++;
             }
