@@ -24,10 +24,12 @@ import estgconstroi.enums.EquipmentStatus;
 import estgconstroi.enums.EquipmentType;
 import estgconstroi.enums.EventPriority;
 import estgconstroi.exceptions.ConstructionSiteException;
+import estgconstroi.exceptions.EventManagerException;
 import estgconstroi.exceptions.TeamException;
 import exceptions.ConstructionSiteExceptionImpl;
 import exceptions.ConstructionSiteManagerExceptionImpl;
 import exceptions.TeamExceptionImpl;
+import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -39,7 +41,7 @@ public class PP_Especial {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ConstructionSiteExceptionImpl, TeamExceptionImpl, TeamException, ConstructionSiteException, ConstructionSiteManagerExceptionImpl {    
+    public static void main(String[] args) throws ConstructionSiteExceptionImpl, TeamExceptionImpl, TeamException, ConstructionSiteException, ConstructionSiteManagerExceptionImpl, EventManagerException, IOException, InterruptedException {    
         
         Menu menu = new Menu();
         menu.menuPrincipal();

@@ -49,6 +49,16 @@ public class EventImpl extends Event {
         this.equipment = equipment;
         this.eventType = "Failure";
     }
+    
+    public EventImpl(EventPriority priority, String title, Employee reporter, ConstructionSite constructionSite, String details, String message, String uuid, LocalDate date, Employee employee, Equipment equipment) {
+        super(priority, title, reporter, constructionSite);
+        this.uuid = uuid;
+        this.date = date;
+        this.details = details;
+        this.message = message;
+        this.equipment = equipment;
+        this.eventType = "Employee accident with a machine";
+    }
 
     @Override
     public LocalDate getDate() {

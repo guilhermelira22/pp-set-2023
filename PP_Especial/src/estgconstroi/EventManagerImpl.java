@@ -6,6 +6,7 @@ package estgconstroi;
 
 import estgconstroi.enums.EventPriority;
 import estgconstroi.exceptions.EventManagerException;
+import exceptions.EventManagerExceptionImpl;
 import java.time.LocalDate;
 
 /**
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class EventManagerImpl implements EventManager {
 
     private Event[] events;
+    private EventImpl[] eventos;
     private int numberOfEvents = 0;
 
     public EventManagerImpl(int numMaxOfEvents) {
@@ -33,11 +35,11 @@ public class EventManagerImpl implements EventManager {
     }
 
     @Override
-    public void reportEvent(Event event) throws EventManagerException {
+    public void reportEvent(Event event) throws EventManagerExceptionImpl {
         try {
             for (int i = 0; i < numberOfEvents; i++) {
                 if (events[i] != null && events[i].equals(event)) {
-                    throw new EventManagerException("O evento ja foi reportado.");
+                    throw new EventManagerExceptionImpl("O evento ja foi reportado.");
                 }
             }
 
@@ -49,39 +51,107 @@ public class EventManagerImpl implements EventManager {
                 }
             }
 
-        } catch (EventManagerException e) {
+        } catch (EventManagerExceptionImpl e) {
             throw e;
         }
     }
 
     @Override
     public void removeAllEvents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        events = new Event[events.length];
+        numberOfEvents = 0;      
     }
 
     @Override
-    public void removeEvent(Event event) throws EventManagerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeEvent(Event event) throws EventManagerExceptionImpl {
+        try{
+            boolean found = false;
+            
+            for(int i=0; i<numberOfEvents; i++){
+                if (events[i] != null && events[i].equals(event)) {
+                    for (int j=i; j<numberOfEvents-1; j++) {
+                        events[j] = events[j+1];
+                    }
+                    events[numberOfEvents-1] = null;
+                    numberOfEvents--; 
+                    found = true; 
+                    break;
+                }
+            }
+            if (!found){
+                throw new EventManagerExceptionImpl("O evento nao existe");
+            }
+        }catch (EventManagerExceptionImpl e){
+            throw e;
+        }
     }
 
     @Override
     public Event[] getEvent(EventPriority ep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+        
+        for(Event eventos : events){
+            if (eventos != null && eventos.getPriority() == ep) {
+                result[index] = eventos;
+                index++;
+            }
+        }
+        return result;
     }
 
     @Override
     public Event[] getEvent(Class type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /*public EventImpl[] getEventType(String type){
+        EventImpl[] result = new EventImpl[numberOfEvents];
+        int index = 0;
+        
+        for(EventImpl evento : eventos){
+            if(evento != null && evento.getEventType().equals(type)){
+                result[index] = evento;
+                index++;
+            }
+        }
+        return result;
+    }*/
 
     @Override
     public Event[] getEvent(LocalDate ld) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+        
+        for(Event eventos : events){
+            if(eventos != null && eventos.getDate() == ld){
+                result[index] = eventos;
+                index++;
+            }
+        }
+        return result;
     }
 
     @Override
     public Event[] getEvent(LocalDate ld, LocalDate ld1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Event[] result = new Event[numberOfEvents];
+        int index = 0;
+
+        for (Event event : events) {
+            if (event != null && isDateInRange(event.getDate(), ld, ld1)) {
+                result[index] = event;
+                index++;
+            }
+        }
+
+        Event[] filteredEvents = new Event[index];
+        System.arraycopy(result, 0, filteredEvents, 0, index);
+
+        return filteredEvents;
+    }
+    
+    private boolean isDateInRange(LocalDate date, LocalDate startDate, LocalDate endDate) {
+        return !date.isBefore(startDate) && !date.isAfter(endDate);
     }
 
     public Event[] getEvent(String constructionSite) {
@@ -134,3 +204,13 @@ public class EventManagerImpl implements EventManager {
         }
     }*/
 }
+/*for(int i=0; i<numberOfEvents; i++){
+                if (events[i] != null) {
+                    for (int j=i; j<numberOfEvents-1; j++) {
+                        events[j] = events[j+1];
+                    }
+                    events[numberOfEvents-1] = null;
+                    numberOfEvents--; 
+                    break;
+                }
+            }*/

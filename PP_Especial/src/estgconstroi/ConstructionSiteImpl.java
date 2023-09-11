@@ -15,8 +15,8 @@ import java.time.LocalDate;
  *
  * @author guilhermeLira
  */
-public class ConstructionSiteImpl implements ConstructionSite{
-    
+public class ConstructionSiteImpl implements ConstructionSite {
+
     private String name;
     private String location;
     private String permit;
@@ -24,7 +24,7 @@ public class ConstructionSiteImpl implements ConstructionSite{
     private LocalDate startDate;
     private LocalDate endDate;
     private Employee responsible;
-    private Team[] teams; 
+    private Team[] teams;
     private int numberOfteams = 0;
     private Equipments equipments;
     private final int MAX_EQUIPMENTS_PER_TEAM = 20;
@@ -39,10 +39,11 @@ public class ConstructionSiteImpl implements ConstructionSite{
         this.responsible = responsible;
         this.equipments = equi;
         this.teams = new Team[numMaxOfTeams];
-        numberOfteams = 0; 
+        numberOfteams = 0;
         if (!isValid()) {
             throw new IllegalArgumentException("Dados inválidos!");
         }
+
     }
 
     @Override
@@ -88,60 +89,63 @@ public class ConstructionSiteImpl implements ConstructionSite{
 
     @Override
     public void setResponsible(Employee empl) throws ConstructionSiteExceptionImpl {
-        try{
-            if(empl.getType() != empl.getType().MANAGER){
+        try {
+            if (empl.getType() != empl.getType().MANAGER) {
                 throw new ConstructionSiteExceptionImpl("O trabalhador nao e manager");
             }
-            
+
             this.responsible = empl;
-            
-        }catch(ConstructionSiteExceptionImpl e){
+
+        } catch (ConstructionSiteExceptionImpl e) {
             throw e;
         }
     }
 
     @Override
     public void addTeam(Team team) throws ConstructionSiteExceptionImpl {
-        try{
-            for(int i=0; i<numberOfteams; i++){
-                if(teams[i] != null && teams[i].equals(team)){
+        try {
+            for (int i = 0; i < numberOfteams; i++) {
+                if (teams[i] != null && teams[i].equals(team)) {
                     throw new ConstructionSiteExceptionImpl("A equipa ja esta na obra");
                 }
             }
-            
-            for(int i=0; i<teams.length; i++){
+
+            for (int i = 0; i < teams.length; i++) {
                 if (teams[i] == null) {
                     teams[i] = team;
                     numberOfteams++;
+                    if (numberOfteams == 0) {
+                        throw new ConstructionSiteExceptionImpl("Equipa nao foi criada.");
+                    }
                     return;
                 }
             }
-            
-        }catch(ConstructionSiteExceptionImpl e){
+
+        } catch (ConstructionSiteExceptionImpl e) {
             throw e;
         }
     }
 
     @Override
-    public void removeTeam(Team team) throws ConstructionSiteException {
-        try{
+    public void removeTeam(Team team) throws ConstructionSiteExceptionImpl {
+        try {
             boolean found = false;
-            
-            for(int i=0; i<numberOfteams; i++){
+
+            for (int i = 0; i < numberOfteams; i++) {
                 if (teams[i] != null && teams[i].equals(team)) {
-                    for (int j=i; j<numberOfteams-1; j++) {
-                        teams[j] = teams[j+1];
+                    for (int j = i; j < numberOfteams - 1; j++) {
+                        teams[j] = teams[j + 1];
                     }
-                    teams[numberOfteams-1] = null;
-                    numberOfteams--; 
-                    found = true; 
+                    teams[numberOfteams - 1] = null;
+                    numberOfteams--;
+                    found = true;
                     break;
                 }
             }
-            if (!found){
-                throw new ConstructionSiteException("A equipa nao esta na obra");
+            if (!found) {
+                throw new ConstructionSiteExceptionImpl("A equipa nao esta na obra");
             }
-        }catch (ConstructionSiteException e){
+        } catch (ConstructionSiteExceptionImpl e) {
             throw e;
         }
     }
@@ -150,9 +154,9 @@ public class ConstructionSiteImpl implements ConstructionSite{
     public Team[] getTeams(String string) {
         Team[] result = new Team[numberOfteams];
         int index = 0;
-        
-        for(Team team : teams){
-            if (team != null && team.getName() == string) {
+
+        for (Team team : teams) {
+            if (team != null && team.getName().equals(string)) {
                 result[index] = team;
                 index++;
             }
@@ -164,8 +168,8 @@ public class ConstructionSiteImpl implements ConstructionSite{
     public Team[] getTeams() {
         Team[] result = new Team[numberOfteams];
         int index = 0;
-        
-        for(Team team : teams){
+
+        for (Team team : teams) {
             if (team != null) {
                 result[index] = team;
                 index++;
@@ -176,32 +180,31 @@ public class ConstructionSiteImpl implements ConstructionSite{
 
     @Override
     public boolean isValid() {
-        /*System.out.println("Responsible Type: " + responsible.getType()); // Verifique o tipo de responsável
-        System.out.println("Number of Teams: " + numberOfteams); // Verifique o número de equipes*/
+        // System.out.println("Responsible Type: " + responsible.getType()); // Verifique o tipo de responsável
+        // System.out.println("Number of Teams: " + numberOfteams); // Verifique o número de equipes
 
         if (responsible.getType() != EmployeeType.MANAGER) {
             return false;
         }
-        /*if (numberOfteams == 0) {
+        /* if (numberOfteams == 0) {
             return false;
         }*/
-        /*for (Team team : teams) {
-        boolean hasTeamLeader = false;
-        for (Employee employee : team.getEmployees()) {
-        System.out.println("Employee Type: " + employee.getType()); // Verifique o tipo de funcionário
-        if (employee.getType() == EmployeeType.TEAM_LEADER) {
-        hasTeamLeader = true;
-        break;
-        }
-        }
-        if (!hasTeamLeader) {
-        return false;
-        }
+ /*for (Team team : teams) {
+            boolean hasTeamLeader = false;
+            for (Employee employee : team.getEmployees()) {
+                if (employee.getType() == EmployeeType.TEAM_LEADER) {
+                    hasTeamLeader = true;
+                    break;
+                }
+            }
+            if (!hasTeamLeader) {
+            return false;
+            }
         }*/
-        Equipment[] equip = equipments.getEquipment();   
+        Equipment[] equip = equipments.getEquipment();
         boolean hasTeamLeader = false;
-        for(Equipment equipment : equip){
-            if(equipment.getStatus() == EquipmentStatus.OPERATIVE){
+        for (Equipment equipment : equip) {
+            if (equipment.getStatus() == EquipmentStatus.OPERATIVE) {
                 hasTeamLeader = true;
                 break;
             }
@@ -215,26 +218,25 @@ public class ConstructionSiteImpl implements ConstructionSite{
         return true;
     }
 
-
     @Override
     public Equipments getEquipments() {
         return equipments;
     }
-    
+
     @Override
-    public String toString(){
-        return "Name: " 
-                + getName() 
-                + ", Location: " 
-                + getLocation() 
-                + ", Permissao: " 
-                + getPermit() 
-                + ", Permit expiration Date: " 
+    public String toString() {
+        return "Name: "
+                + getName()
+                + ", Location: "
+                + getLocation()
+                + ", Permissao: "
+                + getPermit()
+                + ", Permit expiration Date: "
                 + getPermitExpirationDate()
                 + ", Start Date: "
                 + getStartDate()
                 + ", End Date: "
                 + getEndDate();
     }
-    
+
 }
