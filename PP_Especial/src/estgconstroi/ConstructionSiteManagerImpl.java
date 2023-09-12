@@ -1,4 +1,10 @@
 /*
+* Nome: <Guilherme Fonseca Lira de Meireles>
+* Número: <8210415>
+* Turma: <LSIRCT1>
+*
+*/
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -13,8 +19,8 @@ import java.util.Arrays;
  *
  * @author guilhermeLira
  */
-public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
-    
+public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
+
     private ConstructionSite[] consS;
     private int numberOfConsS = 0;
     private final int MAX_TEAMS_PER_CONSTRUCTION_SITE = 10;
@@ -22,29 +28,30 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
 
     public ConstructionSiteManagerImpl(int maxConsS) {
         consS = new ConstructionSite[maxConsS];
-        if (!isValid()) {
-            throw new IllegalArgumentException("Obra invalida!");
-        }
+
     }
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerExceptionImpl {
-        try{
-            for(int i=0; i<numberOfConsS; i++){
-                if(consS[i].equals(cs)){
+        try {
+            for (int i = 0; i < numberOfConsS; i++) {
+                if (consS[i].equals(cs)) {
                     throw new ConstructionSiteManagerExceptionImpl("A obra ja esta existe");
                 }
             }
-            
-            for(int i=0; i<consS.length; i++){
+
+            for (int i = 0; i < consS.length; i++) {
                 if (consS[i] == null) {
                     consS[i] = cs;
                     numberOfConsS++;
+                    if (!isValid()) {
+                        throw new IllegalArgumentException("Obra invalida!");
+                    }
                     return;
                 }
             }
-            
-        }catch(ConstructionSiteManagerExceptionImpl e){
+
+        } catch (ConstructionSiteManagerExceptionImpl e) {
             throw e;
         }
     }
@@ -149,7 +156,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
         Equipment[] allEquipment = new Equipment[numberOfConsS * MAX_EQUIPMENTS_PER_CONSTRUCTION_SITE];
         Team[] assignedTeams = new Team[numberOfConsS * MAX_TEAMS_PER_CONSTRUCTION_SITE];
         Employee[] assignedEmployees = new Employee[numberOfConsS * MAX_TEAMS_PER_CONSTRUCTION_SITE * MAX_EQUIPMENTS_PER_CONSTRUCTION_SITE];
-        int index = 0;      
+        int index = 0;
 
         for (ConstructionSite cs : consS) {
             if (cs != null && cs.isValid()) {
@@ -183,7 +190,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
                 }
             }
         }
-        
+
         for (ConstructionSite cs : consS) {
             if (cs != null && cs.isValid()) {
                 Team[] teams = cs.getTeams();
@@ -197,7 +204,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
                             }
                         }
                         if (isTeamAlreadyAssigned) {
-                            return false; 
+                            return false;
                         }
                         assignedTeams[index] = team;
                         index++;
@@ -205,9 +212,17 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
                 }
             }
         }
-        
-        for (ConstructionSite cs : consS) {
+
+        for (ConstructionSite cs : getConstructionSites()) {
             if (cs != null && cs.isValid()) {
+                for (int i = 0; i < numberOfConsS; i++) {
+                    if (consS[i].getResponsible() == cs.getResponsible()) {
+                        break;
+                    }
+                    if (consS[i].getResponsible() == cs.getResponsible()) {
+                        return false;
+                    }
+                }
                 Team[] teams = cs.getTeams();
                 for (Team team : teams) {
                     if (team != null) {
@@ -233,14 +248,28 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
             }
         }
 
+        /*for (int i = 0; i < teams.length; i++) {
+                            if (teams[i].getLeader() == team.getLeader()) {
+                                break;
+                            }
+                            if (teams[i].getLeader() == team.getLeader()) {
+                                return false;
+                            }
+                        }*/
         return true;
     }
     
-    public ConstructionSite[] getConstructionSites(){
+    /**
+     * Retorna todos os constructionSites
+     * 
+     * @return 
+     */
+
+    public ConstructionSite[] getConstructionSites() {
         ConstructionSite[] result = new ConstructionSite[numberOfConsS];
         int index = 0;
-        
-        for(ConstructionSite constructionS : consS){
+
+        for (ConstructionSite constructionS : consS) {
             if (constructionS != null) {
                 result[index] = constructionS;
                 index++;
@@ -248,5 +277,5 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager{
         }
         return result;
     }
-    
+
 }

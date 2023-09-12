@@ -1,4 +1,10 @@
 /*
+* Nome: <Guilherme Fonseca Lira de Meireles>
+* Número: <8210415>
+* Turma: <LSIRCT1>
+*
+*/
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -154,6 +160,13 @@ public class EventManagerImpl implements EventManager {
         return !date.isBefore(startDate) && !date.isAfter(endDate);
     }
 
+    /**
+     * Retorna os eventos de um certo constructionSite
+     * 
+     * @param constructionSite
+     * @return 
+     */
+    
     public Event[] getEvent(String constructionSite) {
         Event[] result = new Event[numberOfEvents];
         int index = 0;
@@ -166,6 +179,12 @@ public class EventManagerImpl implements EventManager {
         }
         return result;
     }
+    
+    /**
+     * Retorna todos os eventos
+     * 
+     * @return 
+     */
 
     public Event[] getEvent() {
         Event[] result = new Event[numberOfEvents];
@@ -180,37 +199,4 @@ public class EventManagerImpl implements EventManager {
         return result;
     }
 
-    /* public void sendReport(){
-        Event[] result = new Event[numberOfEvents];
-        int index = 0;
-        
-        for(Event event : events){
-            if (event != null) {
-                String jsonData = 
-                        "{ \"groupname\":\"Grupo8\","
-                        + "\"groupkey\":\"xpto\","
-                        + "\"event\": {"
-                        + "\"uuid\": " + event.getUuid()+","
-                        + "\"data\": " + event.getDate()+","
-                        + "\"priority\": " + event.getPriority() + ","
-                        + "\"eventtype\": " + event.
-                        + "\"title\": "Avaria de máquina",
-                        + "\"constructionsitename\": "cs1",
-                        + "\"details\": "...",
-                        + "\"employeename\": "João"
-                        + "}"
-                        + "}";
-            }
-        }
-    }*/
 }
-/*for(int i=0; i<numberOfEvents; i++){
-                if (events[i] != null) {
-                    for (int j=i; j<numberOfEvents-1; j++) {
-                        events[j] = events[j+1];
-                    }
-                    events[numberOfEvents-1] = null;
-                    numberOfEvents--; 
-                    break;
-                }
-            }*/

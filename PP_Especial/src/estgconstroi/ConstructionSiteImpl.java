@@ -1,4 +1,10 @@
 /*
+* Nome: <Guilherme Fonseca Lira de Meireles>
+* Número: <8210415>
+* Turma: <LSIRCT1>
+*
+*/
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -117,6 +123,9 @@ public class ConstructionSiteImpl implements ConstructionSite {
                     if (numberOfteams == 0) {
                         throw new ConstructionSiteExceptionImpl("Equipa nao foi criada.");
                     }
+                    if (team.getLeader().getType() != team.getLeader().getType().TEAM_LEADER) {
+                        throw new ConstructionSiteExceptionImpl("Equipa nao tem TEAM_LEADER.");
+                    }
                     return;
                 }
             }
@@ -180,27 +189,9 @@ public class ConstructionSiteImpl implements ConstructionSite {
 
     @Override
     public boolean isValid() {
-        // System.out.println("Responsible Type: " + responsible.getType()); // Verifique o tipo de responsável
-        // System.out.println("Number of Teams: " + numberOfteams); // Verifique o número de equipes
-
         if (responsible.getType() != EmployeeType.MANAGER) {
             return false;
         }
-        /* if (numberOfteams == 0) {
-            return false;
-        }*/
- /*for (Team team : teams) {
-            boolean hasTeamLeader = false;
-            for (Employee employee : team.getEmployees()) {
-                if (employee.getType() == EmployeeType.TEAM_LEADER) {
-                    hasTeamLeader = true;
-                    break;
-                }
-            }
-            if (!hasTeamLeader) {
-            return false;
-            }
-        }*/
         Equipment[] equip = equipments.getEquipment();
         boolean hasTeamLeader = false;
         for (Equipment equipment : equip) {

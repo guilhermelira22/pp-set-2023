@@ -1,4 +1,10 @@
 /*
+* Nome: <Guilherme Fonseca Lira de Meireles>
+* Número: <8210415>
+* Turma: <LSIRCT1>
+*
+*/
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -23,8 +29,7 @@ import java.time.LocalDate;
  */
 public class LoadData {
 
-    // as viariaveis
-    private EmployeeImpl emp1, emp2, emp3, emp4;
+    private EmployeeImpl emp1, emp2, emp3, emp4, a, b, c;
     private EquipmentImpl equi1, equi2, equi3, equi4, equi5, equi6, equi7, equi8;
     private EquipmentsImpls equips, equips2, equips3, equips4, equips5, equips6, equips7, equips8;
     private TeamImpl team, team2, team3, team4;
@@ -35,10 +40,22 @@ public class LoadData {
     private EventManagerImpl eventM;
     private Inspection inspection1, inspection2, inspection3, inspection4;
 
+    /**
+     * Função para carregar todos os dados
+     * 
+     * @throws ConstructionSiteExceptionImpl
+     * @throws TeamException
+     * @throws ConstructionSiteManagerExceptionImpl
+     * @throws EventManagerException 
+     */
+    
     public void data() throws ConstructionSiteExceptionImpl, TeamException, ConstructionSiteManagerExceptionImpl, EventManagerException {
 
         emp1 = new EmployeeImpl("Lira", "123abc", EmployeeType.TEAM_LEADER);
         emp2 = new EmployeeImpl("Joao", "321cba", EmployeeType.MANAGER);
+        a = new EmployeeImpl("Joaquim", "2", EmployeeType.MANAGER);
+        b = new EmployeeImpl("Hugo", "3", EmployeeType.MANAGER);
+        c = new EmployeeImpl("Roberto", "4", EmployeeType.MANAGER);
         emp3 = new EmployeeImpl("Paulo", "abc123", EmployeeType.WORKER);
         emp4 = new EmployeeImpl("Rodrigo", "cba321", EmployeeType.WORKER);
 
@@ -80,9 +97,9 @@ public class LoadData {
         team4.addEmployees(emp4);
 
         cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips5);
-        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips6);
-        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips7);
-        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips8);
+        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), a, 5, equips6);
+        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), b, 5, equips7);
+        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), c, 5, equips8);
 
         cons.setResponsible(emp2);
         cons.addTeam(team);
@@ -121,8 +138,14 @@ public class LoadData {
         inspection2 = new Inspection(LocalDate.of(2023, 9, 23), AvaliationType.NOT_APROVED, equi1, "Escavadora avariada");
         inspection3 = new Inspection(LocalDate.of(2023, 9, 24), AvaliationType.APROVED, emp3, "Mario", 1234);
         inspection4 = new Inspection(LocalDate.of(2023, 9, 24), AvaliationType.NOT_APROVED, emp4, "Mario", 1234, 10, ProblemType.MENTAL);  
+        
+        System.out.println(cons.isValid());
 
     }
+    
+    /**
+     * Função para listar todas as inspeções
+     */
     
     public void listInspection(){
         Inspection[] inspections = {inspection1, inspection2, inspection3, inspection4};
@@ -133,6 +156,13 @@ public class LoadData {
         }
     }
 
+    /**
+     * Função para listar todos os equipamentos
+     * 
+     * @param equipment
+     * @param equipments 
+     */
+    
     private void listEquipments(Equipments equipment, Equipments equipments) {
         Equipment[] equipamentos = equipment.getEquipment();
         Equipment[] equips = equipments.getEquipment();
@@ -146,6 +176,12 @@ public class LoadData {
             }
         }
     }
+    
+    /**
+     * Função para listar todos os trabalhadores
+     * 
+     * @param employee 
+     */
 
     private void listEmployee(Team employee) {
         Employee[] employees = employee.getEmployees();
@@ -156,6 +192,12 @@ public class LoadData {
             }
         }
     }
+    
+    /**
+     * Função para listar todas as equipas
+     * 
+     * @param team 
+     */
 
     private void listTeams(ConstructionSite team) {
         Team[] teams = team.getTeams();
@@ -168,6 +210,12 @@ public class LoadData {
             }
         }
     }
+    
+    /**
+     * Função para listar todos os constructionSites
+     * 
+     * @param constructionSite 
+     */
 
     private void listConstructionSites(ConstructionSiteManagerImpl constructionSite) {
         ConstructionSite[] constructionS = constructionSite.getConstructionSites();
@@ -180,6 +228,12 @@ public class LoadData {
             }
         }
     }
+    
+    /**
+     * Função para listar todos os eventos
+     * @param event
+     * @param constructionSite 
+     */
 
     private void listEvents(EventManagerImpl event, String constructionSite) {
         Event[] events = event.getEvent(constructionSite);
@@ -190,6 +244,13 @@ public class LoadData {
             }
         }
     }
+    
+    /**
+     * Função para enviar todos os eventos para o mongoDb
+     * 
+     * @throws IOException
+     * @throws InterruptedException 
+     */
 
     public void sendReport() throws IOException, InterruptedException {
         // System.out.println(event1);
@@ -204,18 +265,36 @@ public class LoadData {
         }
 
     }
+    
+    /**
+     * Função para receber todos os eventos do mongoDb
+     * 
+     * @throws IOException
+     * @throws InterruptedException 
+     */
 
     public void getReport() throws IOException, InterruptedException {
         InsuranceReporter report = new InsuranceReporter();
         String result = report.getEvents("xpto", "Grupo8");
         System.out.println(result);
     }
+    
+    /**
+     * Função para eliminar todos os eventos do mongoDb
+     * 
+     * @throws IOException
+     * @throws InterruptedException 
+     */
 
     public void delReport() throws IOException, InterruptedException {
         InsuranceReporter report = new InsuranceReporter();
         String result = report.resetEvents("xpto", "Grupo8");
         System.out.println(result);
     }
+    
+    /**
+     * Função para listar tudo organizadamente
+     */
 
     public void listing() {
         listConstructionSites(csm);

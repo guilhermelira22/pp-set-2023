@@ -1,4 +1,10 @@
 /*
+* Nome: <Guilherme Fonseca Lira de Meireles>
+* Número: <8210415>
+* Turma: <LSIRCT1>
+*
+*/
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -10,6 +16,7 @@ import estgconstroi.enums.EquipmentStatus;
 import java.time.LocalDate;
 
 /**
+ * Classe que faz uma inspeção a um certo equipamento ou trabalhador
  *
  * @author guilhermeLira
  */
