@@ -44,7 +44,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
                 if (consS[i] == null) {
                     consS[i] = cs;
                     numberOfConsS++;
-                    if (!isValid()) {
+                    if (isValid() == false) {
                         throw new IllegalArgumentException("Obra invalida!");
                     }
                     return;
@@ -215,14 +215,6 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
 
         for (ConstructionSite cs : getConstructionSites()) {
             if (cs != null && cs.isValid()) {
-                for (int i = 0; i < numberOfConsS; i++) {
-                    if (consS[i].getResponsible() == cs.getResponsible()) {
-                        break;
-                    }
-                    if (consS[i].getResponsible() == cs.getResponsible()) {
-                        return false;
-                    }
-                }
                 Team[] teams = cs.getTeams();
                 for (Team team : teams) {
                     if (team != null) {
@@ -246,16 +238,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
                     }
                 }
             }
-        }
-
-        /*for (int i = 0; i < teams.length; i++) {
-                            if (teams[i].getLeader() == team.getLeader()) {
-                                break;
-                            }
-                            if (teams[i].getLeader() == team.getLeader()) {
-                                return false;
-                            }
-                        }*/
+        }    
         return true;
     }
     

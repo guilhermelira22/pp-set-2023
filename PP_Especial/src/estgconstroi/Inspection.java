@@ -20,25 +20,25 @@ import java.time.LocalDate;
  *
  * @author guilhermeLira
  */
-public class Inspection {
+public abstract class Inspection {
     
     private LocalDate inspectionDate;
     private AvaliationType avaliation;
-    private Equipment equipment;
+    /*private Equipment equipment;
     private Employee employee;
     private String description;
     private String doctorName;
     private int licenseNumber;
     private int offDays;
-    private ProblemType problemType;
+    private ProblemType problemType;*/
 
-    public Inspection(LocalDate inspectionDate, AvaliationType avaliation, Equipment equipment) {
+    public Inspection(LocalDate inspectionDate, AvaliationType avaliation) {
         this.inspectionDate = inspectionDate;
         this.avaliation = avaliation;
-        this.equipment = equipment;
+        //this.equipment = equipment;
     }
 
-    public Inspection(LocalDate inspectionDate, AvaliationType avaliation, Equipment equipment, String description) {
+    /*public Inspection(LocalDate inspectionDate, AvaliationType avaliation, Equipment equipment, String description) {
         this.inspectionDate = inspectionDate;
         this.avaliation = avaliation;
         this.equipment = equipment;
@@ -64,7 +64,7 @@ public class Inspection {
         this.licenseNumber = licenseNumber;
         this.offDays = offDays;
         this.problemType = problemType;
-    }
+    }*/
 
     public LocalDate getInspectionDate() {
         return inspectionDate;
@@ -74,7 +74,7 @@ public class Inspection {
         return avaliation;
     }
 
-    public Equipment getEquipment() {
+    /*public Equipment getEquipment() {
         return equipment;
     }
 
@@ -129,6 +129,6 @@ public class Inspection {
                     + ", Tipo de problema: " + getProblemType();
         }
         return "Sem inspecoes feitas";
-    }
+    }*/
     
 }

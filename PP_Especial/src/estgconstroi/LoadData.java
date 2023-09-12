@@ -29,7 +29,7 @@ import java.time.LocalDate;
  */
 public class LoadData {
 
-    private EmployeeImpl emp1, emp2, emp3, emp4, a, b, c;
+    private EmployeeImpl emp1, emp2, emp3, emp4, a, b, c, d, e, f;
     private EquipmentImpl equi1, equi2, equi3, equi4, equi5, equi6, equi7, equi8;
     private EquipmentsImpls equips, equips2, equips3, equips4, equips5, equips6, equips7, equips8;
     private TeamImpl team, team2, team3, team4;
@@ -52,6 +52,9 @@ public class LoadData {
     public void data() throws ConstructionSiteExceptionImpl, TeamException, ConstructionSiteManagerExceptionImpl, EventManagerException {
 
         emp1 = new EmployeeImpl("Lira", "123abc", EmployeeType.TEAM_LEADER);
+        d = new EmployeeImpl("Fernando", "5", EmployeeType.TEAM_LEADER);
+        e = new EmployeeImpl("Filipe", "6", EmployeeType.TEAM_LEADER);
+        f = new EmployeeImpl("Tiago", "7", EmployeeType.TEAM_LEADER);
         emp2 = new EmployeeImpl("Joao", "321cba", EmployeeType.MANAGER);
         a = new EmployeeImpl("Joaquim", "2", EmployeeType.MANAGER);
         b = new EmployeeImpl("Hugo", "3", EmployeeType.MANAGER);
@@ -85,47 +88,62 @@ public class LoadData {
         equips6.addEquipment(equi6);
         equips7.addEquipment(equi7);
         equips8.addEquipment(equi8);
+        
+        TeamImpl[] teams = new TeamImpl[10];
 
-        team = new TeamImpl("Porto", emp1, 10, equips);                                                      //TEAMSIMPLS
-        team2 = new TeamImpl("Benfica", emp1, 10, equips2);
-        team3 = new TeamImpl("Sporting", emp1, 10, equips3);
-        team4 = new TeamImpl("Juventus", emp1, 10, equips4);
+        
+        team = new TeamImpl("Porto", emp1, 10, equips, teams); 
+        teams[0] = team;
+        team2 = new TeamImpl("Benfica", d, 10, equips2, teams);
+        teams[1] = team2;
+        team3 = new TeamImpl("Sporting", e, 10, equips3, teams);
+        teams[2] = team3;
+        team4 = new TeamImpl("Juventus", f, 10, equips4, teams);
+        teams[3] = team4;
 
         team.addEmployees(emp1);
         team2.addEmployees(emp2);
         team3.addEmployees(emp3);
         team4.addEmployees(emp4);
+        
+        csm = new ConstructionSiteManagerImpl(10);
+        
+        cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips5, csm);
+        csm.add(cons);
+        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), a, 5, equips6, csm);
+        csm.add(cons2);
+        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), b, 5, equips7, csm);
+        csm.add(cons3);
+        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), c, 5, equips8, csm);
+        csm.add(cons4);
 
-        cons = new ConstructionSiteImpl("Projeto1", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), emp2, 5, equips5);
-        cons2 = new ConstructionSiteImpl("Projeto2", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), a, 5, equips6);
-        cons3 = new ConstructionSiteImpl("Projeto3", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), b, 5, equips7);
-        cons4 = new ConstructionSiteImpl("Projeto4", "Penafiel", "Sim", LocalDate.of(2023, 9, 30), LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), c, 5, equips8);
-
-        cons.setResponsible(emp2);
         cons.addTeam(team);
         cons2.addTeam(team2);
         cons3.addTeam(team3);
         cons4.addTeam(team4);
 
-        csm = new ConstructionSiteManagerImpl(10);
+        // csm = new ConstructionSiteManagerImpl(10);
 
-        csm.add(cons);
-        csm.add(cons2);
-        csm.add(cons3);
-        csm.add(cons4);
+        // csm.add(cons);
+        //csm.add(cons2);
+        //csm.add(cons3);
+        //csm.add(cons4);
 
-        notifier1 = new NotifierImpl("E-mail");
-        notifier2 = new NotifierImpl("SMS");
-        notifier3 = new NotifierImpl("Console");
+        //notifier1 = new NotifierImpl("E-mail");
+        //notifier2 = new NotifierImpl("SMS");
+        //notifier3 = new NotifierImpl("Console");
 
-        Notifier[] notifiers = {notifier1, notifier2};    
+        //Notifier[] notifiers = {notifier1, notifier2};    
 
+        EventImpl[] eventoslista = new EventImpl[10];
         event1 = new EventImpl(EventPriority.HIGH, "Avaria", emp1, cons, "Escavadora caiu", "Escavadora avariou", "qwerty", LocalDate.of(2023, 9, 20));
-        // event2 = new EventImpl(EventPriority.LOW, "Acidente", emp2, cons, "Trabalhador partiu o pe", "Trabalhador lesionado", "abcdef", LocalDate.of(2023, 9, 22));
-        // event3 = new EventImpl(EventPriority.NORMAL, "Avaria", emp3, cons3, "serra eletrica estragou", "Serra eletrica avariou", "yuiop", LocalDate.of(2023, 9, 25));
+        eventoslista[0] = event1;
         event2 = new EventImpl(EventPriority.LOW, "Perda de material", emp2, cons2, "Perdeu se o martelo", "Martelo perdido", "abcdef", LocalDate.of(2023, 9, 22), emp1);
+        eventoslista[1] = event2;
         event3 = new EventImpl(EventPriority.NORMAL, "Avaria", emp3, cons3, "Serra eletrica parou de funcionar", "Serra eletrica avariou", "yuiop", LocalDate.of(2023, 9, 23), equi1);
+        eventoslista[2] = event3;
         event4 = new EventImpl(EventPriority.NORMAL, "Trabalhador e maquina", emp3, cons3, "Trabalhador avariou maquina", "Maquina avariada", "asdfg", LocalDate.of(2023, 9, 26), emp2, equi1);
+        eventoslista[3] = event4;
 
         eventM = new EventManagerImpl(10);
 
@@ -134,13 +152,22 @@ public class LoadData {
         eventM.reportEvent(event3);
         eventM.reportEvent(event4);
         
-        inspection1 = new Inspection(LocalDate.of(2023, 9, 22), AvaliationType.APROVED, equi2);
-        inspection2 = new Inspection(LocalDate.of(2023, 9, 23), AvaliationType.NOT_APROVED, equi1, "Escavadora avariada");
-        inspection3 = new Inspection(LocalDate.of(2023, 9, 24), AvaliationType.APROVED, emp3, "Mario", 1234);
-        inspection4 = new Inspection(LocalDate.of(2023, 9, 24), AvaliationType.NOT_APROVED, emp4, "Mario", 1234, 10, ProblemType.MENTAL);  
+        inspection1 = new EquipmentInspection(LocalDate.of(2023, 9, 22), AvaliationType.APROVED, equi2);
+        inspection2 = new EquipmentInspection(LocalDate.of(2023, 9, 23), AvaliationType.NOT_APROVED, equi1, "Escavadora avariada");
+        inspection3 = new EmployeeInspection(LocalDate.of(2023, 9, 24), AvaliationType.APROVED, emp3, "Mario", 1234);
+        inspection4 = new EmployeeInspection(LocalDate.of(2023, 9, 24), AvaliationType.NOT_APROVED, emp4, "Mario", 1234, 10, ProblemType.MENTAL);  
+               
+        if(csm.isValid() == false){
+            throw new IllegalArgumentException("Obra invalida!");
+        }
         
-        System.out.println(cons.isValid());
-
+        Event[] eventos = eventM.getEventType("Accident", eventoslista);
+        for(Event eventoslist : eventos){
+            if(eventoslist != null){
+                System.out.println(eventoslist);
+            }
+        }
+        
     }
     
     /**

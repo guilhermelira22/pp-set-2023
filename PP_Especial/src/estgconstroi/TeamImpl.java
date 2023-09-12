@@ -28,12 +28,17 @@ public class TeamImpl implements Team{
     private Equipments equipments;
     private final int MAX_EQUIPMENTS_PER_TEAM = 20;
 
-    public TeamImpl(String teamName, Employee leader, int numMaxOfEmployees, Equipments equi) {
+    public TeamImpl(String teamName, Employee leader, int numMaxOfEmployees, Equipments equi, TeamImpl[] teams) {
         emp = new Employee[numMaxOfEmployees];
         this.teamName = teamName;
         this.leader = leader;
         this.equipments = equi;
         numberOfEmployees = 0;
+        for(Team team : teams){
+            if(team != null && team.getLeader() == leader){
+                throw new IllegalArgumentException("Trabalhador ja esta noutra equipa!");
+            }
+        }
     }  
 
     @Override

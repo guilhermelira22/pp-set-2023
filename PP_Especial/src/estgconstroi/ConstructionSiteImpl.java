@@ -35,7 +35,7 @@ public class ConstructionSiteImpl implements ConstructionSite {
     private Equipments equipments;
     private final int MAX_EQUIPMENTS_PER_TEAM = 20;
 
-    public ConstructionSiteImpl(String name, String location, String permit, LocalDate permitExpirationDate, LocalDate startDate, LocalDate endDate, Employee responsible, int numMaxOfTeams, Equipments equi) {
+    public ConstructionSiteImpl(String name, String location, String permit, LocalDate permitExpirationDate, LocalDate startDate, LocalDate endDate, Employee responsible, int numMaxOfTeams, Equipments equi, ConstructionSiteManagerImpl cms) {
         this.name = name;
         this.location = location;
         this.permit = permit;
@@ -46,10 +46,14 @@ public class ConstructionSiteImpl implements ConstructionSite {
         this.equipments = equi;
         this.teams = new Team[numMaxOfTeams];
         numberOfteams = 0;
+        for (ConstructionSite cs: cms.getConstructionSites()) {
+            if(cs.getResponsible() == responsible){
+                throw new IllegalArgumentException("Trabalhador ja esta noutra equipa!");
+            }
+        }
         if (!isValid()) {
             throw new IllegalArgumentException("Dados inválidos!");
         }
-
     }
 
     @Override

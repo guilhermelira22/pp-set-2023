@@ -111,18 +111,18 @@ public class EventManagerImpl implements EventManager {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*public EventImpl[] getEventType(String type){
+    public EventImpl[] getEventType(String type, EventImpl[] eventosList ){
         EventImpl[] result = new EventImpl[numberOfEvents];
         int index = 0;
         
-        for(EventImpl evento : eventos){
+        for(EventImpl evento : eventosList){
             if(evento != null && evento.getEventType().equals(type)){
                 result[index] = evento;
                 index++;
             }
         }
         return result;
-    }*/
+    }
 
     @Override
     public Event[] getEvent(LocalDate ld) {
