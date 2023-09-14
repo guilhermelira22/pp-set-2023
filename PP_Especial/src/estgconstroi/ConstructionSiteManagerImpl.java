@@ -10,7 +10,6 @@
  */
 package estgconstroi;
 
-import estgconstroi.exceptions.ConstructionSiteManagerException;
 import exceptions.ConstructionSiteManagerExceptionImpl;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -23,7 +22,7 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
 
     private ConstructionSite[] consS;
     private int numberOfConsS = 0;
-    private final int MAX_TEAMS_PER_CONSTRUCTION_SITE = 10;
+    private final int MAX_TEAMS_PER_CONSTRUCTION_SITE = 20;
     private final int MAX_EQUIPMENTS_PER_CONSTRUCTION_SITE = 20;
 
     public ConstructionSiteManagerImpl(int maxConsS) {
@@ -44,9 +43,6 @@ public class ConstructionSiteManagerImpl implements ConstructionSiteManager {
                 if (consS[i] == null) {
                     consS[i] = cs;
                     numberOfConsS++;
-                    if (isValid() == false) {
-                        throw new IllegalArgumentException("Obra invalida!");
-                    }
                     return;
                 }
             }

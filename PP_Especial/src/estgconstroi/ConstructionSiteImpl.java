@@ -12,8 +12,6 @@ package estgconstroi;
 
 import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EquipmentStatus;
-import estgconstroi.enums.EquipmentType;
-import estgconstroi.exceptions.ConstructionSiteException;
 import exceptions.ConstructionSiteExceptionImpl;
 import java.time.LocalDate;
 
@@ -51,9 +49,7 @@ public class ConstructionSiteImpl implements ConstructionSite {
                 throw new IllegalArgumentException("Trabalhador ja esta noutra equipa!");
             }
         }
-        if (!isValid()) {
-            throw new IllegalArgumentException("Dados inválidos!");
-        }
+        
     }
 
     @Override
@@ -208,6 +204,9 @@ public class ConstructionSiteImpl implements ConstructionSite {
             return false;
         }
         if (permitExpirationDate.isBefore(endDate)) {
+            return false;
+        }
+        if (numberOfteams == 0) {
             return false;
         }
         return true;

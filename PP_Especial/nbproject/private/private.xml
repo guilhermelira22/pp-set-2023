@@ -16,6 +16,7 @@
             <file>file:/C:/pp_8210415/PP_Especial/src/exceptions/ConstructionSiteExceptionImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/exceptions/TeamExceptionImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/exceptions/ConstructionSiteManagerExceptionImpl.java</file>
+            <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/EquipmentInspection.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/EventImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/EquipmentImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/EventManagerImpl.java</file>
@@ -25,6 +26,7 @@
             <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/FailureImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/exceptions/EventManagerExceptionImpl.java</file>
             <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/Inspection.java</file>
+            <file>file:/C:/pp_8210415/PP_Especial/src/estgconstroi/EmployeeInspection.java</file>
         </group>
     </open-files>
 </project-private>

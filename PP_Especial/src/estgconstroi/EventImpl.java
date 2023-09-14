@@ -92,24 +92,6 @@ public class EventImpl extends Event {
 
     @Override
     public String toString() {
-        /* return "Construction Site: "
-                + getConstructionSite()
-                + "\n Reporter: "
-                + getReporter()
-                + "\n Date: "
-                + getDate()
-                + "\n Events uuid: "
-                + getUuid()
-                + "\n Priority: "
-                + getPriority()
-                + "\n Title: "
-                + getTitle()
-                + "\n Notification Message: "
-                + getNotificationMessage()
-                + "\n Details: "
-                + getDetails()
-                + "\n Event Type: "
-                + getEventType(); */
         return "{ \"groupname\":\"Grupo8\","
                 + "\"groupkey\":\"xpto\","
                 + "\"event\": {"
